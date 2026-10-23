@@ -3,69 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SANTIAGO CONECTADO - Guía local 100% Santiago RD</title>
+<title>SANTIAGO CONECTADO</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#0f1115;color:white;font-family:system-ui,sans-serif;min-height:100vh}
-  .top-bar{display:flex;justify-content:flex-end;padding:12px 20px;gap:8px}
-  .lang-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;padding:6px 12px;border-radius:20px;cursor:pointer;font-size:13px}
-  .lang-btn.active{background:#FFD600;color:black;font-weight:bold;border-color:#FFD600}
-  .hero{text-align:center;padding:40px 20px 20px}
-  .hero h1{font-size:42px;line-height:1.1;font-weight:800}
-  .hero h1 span{color:#FFD600}
-  .subtitle{margin-top:12px;color:#a0a3ad}
-  .search-wrap{max-width:700px;margin:24px auto;padding:0 20px}
-  .search-box{display:flex;background:#1e222b;border-radius:14px;padding:6px;border:1px solid #2a2f3d}
-  .search-box input{flex:1;background:transparent;border:none;color:white;padding:12px 16px;font-size:16px;outline:none}
-  .search-box button{background:#FFD600;color:black;border:none;padding:0 24px;border-radius:10px;font-weight:bold;cursor:pointer}
-  .filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
-  .filter-btn{background:#2a2f3d;color:#cbd5e1;border:none;padding:8px 16px;border-radius:20px;cursor:pointer}
-  .filter-btn.active{background:#FFD600;color:black;font-weight:bold}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#0c0e12;color:white}
+header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:#11141b;border-bottom:1px solid #1e2530}
+.logo{font-weight:800}.logo span{color:#FFD600}
+.nav-center{display:flex;gap:18px}
+.nav-link{color:#9ca3af;text-decoration:none;font-size:14px}
+.nav-link.help-btn{color:#FFD600;border:1px solid #FFD600;padding:6px 12px;border-radius:20px}
+.idioma-wrap{display:flex;gap:6px;background:#1e222b;border:1px solid #2a3441;border-radius:10px;padding:7px 12px}
+.idioma-wrap select{background:transparent;color:white;border:none;outline:none;font-weight:700}
+.btn-google{background:white;color:#111;padding:8px 14px;border-radius:10px;border:none;font-weight:700}
+.hero{position:relative;height:420px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0.2),rgba(12,14,18,0.95)),url('https://images.unsplash.com/photo-1580735789097-433fdcba5d4e?q=80&w=1400');background-size:cover}
+.hero-content{position:relative;z-index:2}
+.hero h1{font-size:42px;font-weight:800}.hero h1 span{color:#FFD600}
+.search-wrap{max-width:760px;margin:-36px auto 0;position:relative;z-index:3;padding:0 20px}
+.search-box{display:flex;background:#1e222b;border-radius:16px;padding:8px;border:1px solid #2a3441}
+.search-box input{flex:1;background:transparent;border:none;color:white;padding:12px 16px;outline:none}
+.search-box button{background:#FFD600;color:black;border:none;padding:0 26px;border-radius:10px;font-weight:800}
 </style>
 </head>
 <body>
-  <div class="top-bar">
-    <button class="lang-btn active" onclick="setLang('es',this)">🇩🇴 ES</button>
-    <button class="lang-btn" onclick="setLang('en',this)">🇺🇸 EN</button>
-    <button class="lang-btn" onclick="setLang('fr',this)">🇫🇷 FR</button>
-    <button class="lang-btn" onclick="setLang('ht',this)">🇭🇹 HT</button>
-  </div>
-  <div class="hero">
-    <h1 id="mainTitle">Bienvenido a <span>SANTIAGO CONECTADO</span></h1>
-    <p class="subtitle" id="subTitle">Guía local 100% Santiago RD</p>
-  </div>
-  <div class="search-wrap">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Buscar restaurantes, tiendas, servicios...">
-      <button id="goBtn">Ir</button>
-    </div>
-    <div class="filters">
-      <button class="filter-btn active" data-key="all">Todos</button>
-      <button class="filter-btn" data-key="restos">Restaurantes</button>
-      <button class="filter-btn" data-key="boutiques">Tiendas</button>
-      <button class="filter-btn" data-key="services">Servicios</button>
-      <button class="filter-btn" data-key="bars">Bares</button>
-    </div>
-  </div>
+<header>
+<div class="logo">SANTIAGO <span>CONECTADO</span></div>
+<nav class="nav-center">
+<a class="nav-link" href="#">Inicio</a>
+<a class="nav-link" href="#negocios">Negocios</a>
+<a class="nav-link help-btn" href="#ayuda">🆘 Centro de Ayuda</a>
+</nav>
+<div style="display:flex;gap:10px;align-items:center">
+<div class="idioma-wrap">
+<label>Idioma</label>
+<select id="langSelect" onchange="setLang(this.value)">
+<option value="es">Español ▼</option>
+<option value="en">English</option>
+<option value="fr">Français</option>
+<option value="ht">Kreyòl</option>
+</select>
+</div>
+<button class="btn-google" onclick="loginGoogle()"><img src="https://www.svgrepo.com/show/475656/google-color.svg" width="16"> Gmail</button>
+</div>
+</header>
+<div class="hero"><div class="hero-bg"></div><div class="hero-content"><h1>Bienvenido a <span style="color:#FFD600">SANTIAGO CONECTADO</span></h1><p>Guía local 100% Santiago RD</p></div></div>
+<div class="search-wrap"><div class="search-box"><input id="searchInput" placeholder="Buscar restaurantes, tiendas, servicios..."><button id="goBtn">Buscar</button></div></div>
+<div style="max-width:900px;margin:45px auto;padding:0 20px">
+<div style="background:#161a23;border:1px solid #232a36;border-radius:18px;overflow:hidden">
+<div style="padding:18px;background:#1c212e;display:flex;justify-content:space-between">
+<h3>Únete a la comunidad</h3><span style="color:#6b7280;font-size:12px">100% Santiago</span>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr">
+<div style="padding:22px;border-right:1px solid #232a36">
+<h4 style="color:#FFD600">Iniciar sesión</h4>
+<p style="color:#9ca3af;font-size:13px;margin:10px 0 14px">Accede a tus favoritos y negocios guardados.</p>
+<button style="width:100%;padding:12px;background:white;color:#111;border:none;border-radius:10px;font-weight:700;display:flex;justify-content:center;gap:8px" onclick="loginGoogle()"><img src="https://www.svgrepo.com/show/475656/google-color.svg" width="18">Continuar con Gmail</button>
+<button style="width:100%;padding:11px;background:#232a36;color:white;border:1px solid #2a3441;border-radius:10px;margin-top:10px">Con correo electrónico</button>
+</div>
+<div style="padding:22px">
+<h4 style="color:#FFD600">Crear cuenta</h4>
+<p style="color:#9ca3af;font-size:13px;margin:10px 0 14px">Nuevo aquí? Crea tu cuenta gratis.</p>
+<button style="width:100%;padding:12px;background:#FFD600;color:black;border:none;border-radius:10px;font-weight:800">Crear cuenta gratis</button>
+<button style="width:100%;padding:11px;background:#232a36;color:white;border:1px solid #2a3441;border-radius:10px;margin-top:10px">Registrar mi negocio</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id="ayuda" style="max-width:1100px;margin:70px auto 0;background:#0f131a;border-top:1px solid #1e2530;padding:50px 24px">
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+<div>
+<div style="font-size:26px;font-weight:800">🆘 <span style="color:#FFD600">Centro de Ayuda</span></div>
+<p style="color:#9ca3af;margin-top:6px">Encuentra respuestas rápidas y soporte directo</p>
+</div>
+<button style="background:#FFD600;color:black;border:none;padding:10px 18px;border-radius:10px;font-weight:700">Contactar soporte</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:24px">
+<div style="background:#161a23;border:1px solid #232a36;border-radius:14px;padding:20px">
+<div style="font-size:20px">📖</div><h4 style="margin:10px 0 8px">Cómo funciona</h4>
+<p style="color:#9ca3af;font-size:13px;line-height:1.7">• Cómo buscar negocios<br>• Cómo crear cuenta con Gmail<br>• Cómo cambiar idioma<br>• Cómo dejar reseña</p>
+</div>
+<div style="background:#161a23;border:1px solid #232a36;border-radius:14px;padding:20px">
+<div style="font-size:20px">🔐</div><h4 style="margin:10px 0 8px">Mi cuenta</h4>
+<p style="color:#9ca3af;font-size:13px;line-height:1.7">• Conectar con Gmail<br>• Olvidé contraseña<br>• Cambiar idioma<br>• Eliminar cuenta</p>
+</div>
+<div style="background:#161a23;border:1px solid #232a36;border-radius:14px;padding:20px">
+<div style="font-size:20px">🏪</div><h4 style="margin:10px 0 8px">Para negocios</h4>
+<p style="color:#9ca3af;font-size:13px;line-height:1.7">• Cuánto cuesta<br>• Aparecer primero<br>• Verificar negocio<br>• Fotos y promos</p>
+</div>
+<div style="background:#161a23;border:1px solid #232a36;border-radius:14px;padding:20px">
+<div style="font-size:20px">📞</div><h4 style="margin:10px 0 8px">Contacto directo</h4>
+<p style="color:#9ca3af;font-size:13px;line-height:1.7">📧 soporte@santiagoconectado.com<br>📱 WhatsApp Santiago<br>🕐 Lun-Sáb 9AM-6PM</p>
+</div>
+</div>
+<div style="text-align:center;margin-top:36px;color:#4b5563;font-size:12px">SANTIAGO CONECTADO © 2026 - Hecho con ❤️ en Santiago RD</div>
+</div>
 <script>
-const translations={
-  es:{main:'Bienvenido a <span>SANTIAGO CONECTADO</span>',sub:'Guía local 100% Santiago RD',search:'Buscar restaurantes, tiendas, servicios...',go:'Ir',filters:{all:'Todos',restos:'Restaurantes',boutiques:'Tiendas',services:'Servicios',bars:'Bares'}},
-  en:{main:'Welcome to <span>SANTIAGO CONECTADO</span>',sub:'100% Local Guide Santiago RD',search:'Search restaurants, shops, services...',go:'Go',filters:{all:'All',restos:'Restaurants',boutiques:'Shops',services:'Services',bars:'Bars'}},
-  fr:{main:'Bienvenue à <span>SANTIAGO CONECTADO</span>',sub:'Guide local 100% Santiago RD',search:'Chercher restos, boutiques, services...',go:'Go',filters:{all:'Tous',restos:'Restos',boutiques:'Boutiques',services:'Services',bars:'Bars'}},
-  ht:{main:'Byenveni nan <span>SANTIAGO CONECTADO</span>',sub:'Gid lokal 100% Santiago RD',search:'Chèche restoran, boutik, sèvis...',go:'Ale',filters:{all:'Tout',restos:'Restoran',boutiques:'Boutik',services:'Sèvis',bars:'Ba'}}
+const T={
+  es:{main:'Bienvenido a <span style="color:#FFD600">SANTIAGO CONECTADO</span>',sub:'Guía local 100% Santiago RD - Descubre, conecta, disfruta',search:'Buscar restaurantes, tiendas, servicios...',go:'Buscar'},
+  en:{main:'Welcome to <span style="color:#FFD600">SANTIAGO CONECTADO</span>',sub:'100% Local Guide Santiago RD',search:'Search restaurants, shops, services...',go:'Search'},
+  fr:{main:'Bienvenue à <span style="color:#FFD600">SANTIAGO CONECTADO</span>',sub:'Guide local 100% Santiago RD',search:'Chercher restos, boutiques, services...',go:'Chercher'},
+  ht:{main:'Byenveni nan <span style="color:#FFD600">SANTIAGO CONECTADO</span>',sub:'Gid lokal 100% Santiago RD',search:'Chèche restoran, boutik, sèvis...',go:'Chèche'}
 };
-function setLang(lang,btn){
-  const t=translations[lang];
-  document.getElementById('mainTitle').innerHTML=t.main;
-  document.getElementById('subTitle').textContent=t.sub;
+function setLang(l){
+  const t=T[l];
+  document.querySelector('.hero-content h1').innerHTML=t.main;
+  document.querySelector('.hero-content p').textContent=t.sub;
   document.getElementById('searchInput').placeholder=t.search;
   document.getElementById('goBtn').textContent=t.go;
-  document.querySelectorAll('.filter-btn').forEach(b=>{
-    const k=b.dataset.key;
-    if(t.filters[k]) b.textContent=t.filters[k];
-  });
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  localStorage.setItem('lang',l);
+}
+function loginGoogle(){
+  alert('Aquí va tu login Gmail real - conecta tu Firebase Google Auth aquí');
+  // Pour vrai Gmail: window.location.href = '/auth/google'
 }
 </script>
 </body>
